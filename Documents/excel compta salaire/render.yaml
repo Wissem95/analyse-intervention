@@ -4,6 +4,9 @@ services:
     env: php
     buildCommand: './render-build.sh'
     startCommand: 'heroku-php-apache2 public/'
+    runtime: node
+    nodeVersion: 18.19.0
+    autoDeploy: true
     envVars:
       - key: APP_NAME
         value: "Analyseur d'Interventions"
@@ -14,4 +17,10 @@ services:
       - key: DB_CONNECTION
         value: sqlite
       - key: DB_DATABASE
-        value: /database/database.sqlite
+        value: /opt/render/project/src/database/database.sqlite
+      - key: NODE_OPTIONS
+        value: '--max_old_space_size=4096'
+    disk:
+      name: sqlite-data
+      mountPath: /opt/render/project/src/database
+      sizeGB: 1

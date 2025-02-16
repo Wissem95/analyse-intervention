@@ -5,11 +5,8 @@ set -o errexit
 # Install PHP dependencies
 composer install --no-dev --optimize-autoloader
 
-# Install Node dependencies and build assets
-npm install
-npm run build
-
-# Create SQLite database
+# Create SQLite database directory and file
+mkdir -p database
 touch database/database.sqlite
 
 # Generate application key
@@ -20,3 +17,10 @@ php artisan migrate --force
 
 # Create storage link
 php artisan storage:link
+
+# Install Node.js dependencies
+export NODE_OPTIONS="--max_old_space_size=4096"
+npm install --legacy-peer-deps
+
+# Build assets
+npm run build
