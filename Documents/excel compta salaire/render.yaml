@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: analyseur-interventions
+    env: php
+    buildCommand: './render-build.sh'
+    startCommand: 'heroku-php-apache2 public/'
+    envVars:
+      - key: APP_NAME
+        value: "Analyseur d'Interventions"
+      - key: APP_ENV
+        value: production
+      - key: APP_DEBUG
+        value: false
+      - key: DB_CONNECTION
+        value: sqlite
+      - key: DB_DATABASE
+        value: /database/database.sqlite
